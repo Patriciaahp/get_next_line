@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:41:06 by pahernan          #+#    #+#             */
-/*   Updated: 2025/02/23 18:41:06 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/02/24 09:21:13 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+
+
+int	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (*str)
+		i++;
+	return (i);
+}
 
 char *get_next_line(int fd)
 {
