@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:41:06 by pahernan          #+#    #+#             */
-/*   Updated: 2025/02/24 09:21:13 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/02/27 12:25:27 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,47 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	size_t	i;
+	size_t	j;
+
+	j = 0;
+	i = 0;
+	while (src[j] != '\0')
+		j++;
+	if (size == 0)
+		return (j);
+	while ((src[i] != '\0') && (size != 1))
+	{
+		dst[i] = src[i];
+		i++;
+		size--;
+	}
+	if (size > 0)
+		dst[i] = '\0';
+	return (j);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*s3;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (s1[i])
+		i++;
+	while (s2[j])
+		j++;
+	s3 = malloc(sizeof(char) * (i + j + 1));
+	if (!s3)
+		return (NULL);
+	ft_strlcpy(s3, s1, i + 1);
+	ft_strlcpy(s3 + i, s2, j + 1);
+	return (s3);
+}
 
 int	ft_strlen(const char *str)
 {
@@ -28,23 +69,45 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
+char *ft_strrchr(const char *s, int c)
+{
+	unsigned int	i;
+
+	i = 0;
+	if ((char)c == '\0')
+	{
+		i = ft_strlen(*s);
+		return ((char *)&s[i]);
+	}
+	while (*s)
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	return (NULL);
+}
+
 char *get_next_line(int fd)
 {
-    if (fd < 0)
-        return NULL;
+	int	i;
 
-    char *buffer = malloc(2);
+	i = 0;
+	if (fd < 0)
+	return NULL;
+    char *buffer = malloc(20);
+
     if (!buffer)
         return NULL;
 
-    ssize_t bytes_leidos = read(fd, buffer, 1);
+    ssize_t bytes_leidos = read(fd, buffer, 20);
     if (bytes_leidos <= 0)
     {
         free(buffer);
         return NULL;
     }
 
-    buffer[1] = '\0';
+    buffer = '\0';
     return buffer;
 }
 
