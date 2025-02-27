@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:41:06 by pahernan          #+#    #+#             */
-/*   Updated: 2025/02/27 12:25:27 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/02/27 12:42:25 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,13 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-char *ft_strrchr(const char *s, int c)
+char *ft_strchr(const char *s, int c)
 {
 	unsigned int	i;
 
 	i = 0;
 	if ((char)c == '\0')
-	{
-		i = ft_strlen(*s);
-		return ((char *)&s[i]);
-	}
+		return ((char *)&s[ft_strlen(s)]);
 	while (*s)
 	{
 		if (s[i] == (char)c)
@@ -90,6 +87,7 @@ char *ft_strrchr(const char *s, int c)
 
 char *get_next_line(int fd)
 {
+	//cambiar buffer por BUFFER_SIZE
 	int	i;
 
 	i = 0;
@@ -107,7 +105,7 @@ char *get_next_line(int fd)
         return NULL;
     }
 
-    buffer = '\0';
+    buffer[17] = '\0';
     return buffer;
 }
 
