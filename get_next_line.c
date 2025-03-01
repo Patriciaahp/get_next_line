@@ -21,106 +21,127 @@
 #define BUFFER_SIZE 42
 #endif
 
-int ft_strlen(const char *str)
+static size_t ft_strlen(const char *str)
 {
-    int i = 0;
-    while (str[i])
+    size_t i = 0;
+    while (str && str[i])
         i++;
-    return i;
+    return (i);
 }
 
-char *ft_strchr(const char *s, int c)
+static char *ft_strchr(const char *s, int c)
 {
-    int i = 0;
-    while (s[i])
+    if (!s)
+        return (NULL);
+    while (*s)
     {
-        if (s[i] == (char)c)
-            return (char *)(s + i);
-        i++;
+        if (*s == (char)c)
+            return ((char *)s);
+        s++;
     }
-    if (c == '\0' && s[i] == '\0')
-        return (char *)(s + i);
-    return NULL;
+    return (NULL);
 }
 
-char *ft_strjoin(const char *s1, const char *s2)
+static char *ft_strjoin(char *s1, char *s2)
 {
-    int len1 = ft_strlen(s1);
-    int len2 = ft_strlen(s2);
-    char *result = malloc(len1 + len2 + 1);
-    int i = 0;
+    size_t len1 = ft_strlen(s1);
+    size_t len2 = ft_strlen(s2);
+    char *new_str;
+    size_t i = 0, j = 0;
 
-    if (!result)
-        return NULL;
-
+    new_str = malloc(len1 + len2 + 1);
+    if (!new_str)
+        return (NULL);
     while (i < len1)
     {
-        result[i] = s1[i];
+        new_str[i] = s1[i];
         i++;
     }
-    while (i < len1 + len2)
-    {
-        result[i] = s2[i - len1];
-        i++;
-    }
-    result[i] = '\0';
-    return result;
+    while (j < len2)
+        new_str[i++] = s2[j++];
+    new_str[i] = '\0';
+
+    free(s1); // Liberar la memoria antigua de s1 (resto)
+    return (new_str);
 }
 
-char *extract_line(char **resto)
+char *ft_strdup(const char *s)
 {
+    char *s2;
+    int i;
+
+    i = 0;
+    while (s[i])
+        i++;
+    s2 = malloc(sizeof(char) * (i + 1));
+    if (!s2)
+        return (NULL);
+    i = 0;
+    while (s[i] != '\0')
+    {
+        s2[i] = s[i];
+        i++;
+    }
+    s2[i] = '\0';
+    if (s2 != NULL)
+        return (s2);
+    return (NULL);
+}
+
+static char *extract_line(char **resto)
+{
+    char *line;
+    char *new_resto;
     int i = 0;
+
+    if (!*resto || **resto == '\0')
+        return (NULL);
+
     while ((*resto)[i] && (*resto)[i] != '\n')
         i++;
-
-    char *line = malloc(i + 2);
+    line = malloc(i + 2);
     if (!line)
-        return NULL;
+        return (NULL);
 
-    int j = 0;
-    while (j <= i)
-    {
+    for (int j = 0; j <= i; j++)
         line[j] = (*resto)[j];
-        j++;
-    }
-    line[j] = '\0';
+    line[i + 1] = '\0';
 
-    char *new_resto = NULL;
     if ((*resto)[i] == '\n')
         i++;
 
-    if ((*resto)[i] != '\0')
-        new_resto = ft_strjoin(*resto + i, "");
+    new_resto = (*resto)[i] ? ft_strdup(*resto + i) : NULL;
     free(*resto);
     *resto = new_resto;
 
-    return line;
+    return (line);
 }
 
 char *get_next_line(int fd)
 {
-    static char *resto = NULL;
-    char *buffer = malloc(BUFFER_SIZE + 1);
-    if (fd < 0 || BUFFER_SIZE <= 0 || !buffer)
-        return NULL;
+    static char *resto;
+    char *buffer;
+    ssize_t bytes_leidos;
 
-    int bytes_leidos = 1;
-    while (!ft_strchr(resto, '\n') && bytes_leidos > 0)
+    if (fd < 0 || BUFFER_SIZE <= 0 || !(buffer = malloc(BUFFER_SIZE + 1)))
+        return (NULL);
+
+    while (!ft_strchr(resto, '\n'))
     {
         bytes_leidos = read(fd, buffer, BUFFER_SIZE);
         if (bytes_leidos <= 0)
         {
             free(buffer);
             if (resto && *resto)
-                return extract_line(&resto);
-            return NULL;
+                return (extract_line(&resto));
+            return (NULL);
         }
         buffer[bytes_leidos] = '\0';
         resto = ft_strjoin(resto, buffer);
     }
 
     free(buffer);
-    return extract_line(&resto);
+    return (extract_line(&resto));
 }
 
 int main()
