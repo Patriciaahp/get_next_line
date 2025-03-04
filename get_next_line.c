@@ -6,15 +6,15 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:41:06 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/04 18:17:06 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/04 18:20:59 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (str && str[i])
@@ -22,7 +22,7 @@ size_t ft_strlen(const char *str)
 	return (i);
 }
 
-char *ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	if (!s)
 		return (NULL);
@@ -35,11 +35,11 @@ char *ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	static char *resto;
-	char *buffer;
-	ssize_t bytes_leidos;
+	static char	*resto;
+	char		*buffer;
+	ssize_t		bytes_leidos;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
