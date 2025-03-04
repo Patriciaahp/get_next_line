@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:00:53 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/04 15:01:15 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:07:36 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ char *ft_strjoin(char *s1, char *s2)
 	size_t len1 = ft_strlen(s1);
 	size_t len2 = ft_strlen(s2);
 	char *new_str;
-	size_t	i;
-	size_t	j;
+	size_t i;
+	size_t j;
 
-	i= 0;
+	i = 0;
 	j = 0;
+
 	new_str = malloc(len1 + len2 + 1);
 	if (!new_str)
 		return (NULL);
@@ -66,29 +67,24 @@ char *extract_line(char **resto)
 	char *line;
 	char *new_resto;
 	int i;
+	int j;
 
 	i = 0;
+	j = 0;
 	if (!*resto || **resto == '\0')
 		return (NULL);
 	while ((*resto)[i] && (*resto)[i] != '\n')
 		i++;
-	if ((*resto)[i] == '\n')
-		i++;
-	line = (char *)malloc(i + 1);
-	if (!line)
+	if (!(line = malloc(i + 2)))
 		return (NULL);
-	i = 0;
-	while ((*resto)[i] && (*resto)[i] != '\n')
+	while (j <= i)
 	{
-		line[i] = (*resto)[i];
-		i++;
+		line[j] = (*resto)[j];
+		j++;
 	}
+	line[i + 1] = '\0';
 	if ((*resto)[i] == '\n')
-	{
-		line[i] = '\n';
 		i++;
-	}
-	line[i] = '\0';
 	new_resto = (*resto)[i] ? ft_strdup(*resto + i) : NULL;
 	free(*resto);
 	*resto = new_resto;
