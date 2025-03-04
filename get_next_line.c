@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:41:06 by pahernan          #+#    #+#             */
-/*   Updated: 2025/02/27 12:42:25 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/04 09:40:06 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,4 @@ char *get_next_line(int fd)
 
     free(buffer);
     return (extract_line(&resto));
-}
-
-int main()
-{
-    int fd = open("archivo.txt", O_RDONLY);
-    if (fd == -1)
-    {
-        perror("Error al abrir el archivo");
-        return 1;
-    }
-
-    char *line;
-    while ((line = get_next_line(fd)))
-    {
-        printf("%s", line);
-        free(line);
-    }
-
-    close(fd);
-    return 0;
 }
