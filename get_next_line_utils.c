@@ -6,17 +6,17 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:00:53 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/04 18:17:27 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/04 18:20:01 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
-	char *s2;
-	int i;
-	int len;
+	char	*s2;
+	int		i;
+	int		len;
 
 	if (!s)
 		return (NULL);
@@ -34,9 +34,9 @@ char *ft_strdup(const char *s)
 	return (s2);
 }
 
-void copy_str(char *dst, char *src, size_t *index)
+void	copy_str(char *dst, char *src, size_t *index)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (src[i])
@@ -47,12 +47,12 @@ void copy_str(char *dst, char *src, size_t *index)
 	}
 }
 
-char *ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	size_t len1;
-	size_t len2;
-	char *new_str;
-	size_t i;
+	size_t	len1;
+	size_t	len2;
+	char	*new_str;
+	size_t	i;
 
 	if (!s1)
 	{
@@ -74,9 +74,9 @@ char *ft_strjoin(char *s1, char *s2)
 	return (new_str);
 }
 
-char *get_new_resto(char *resto, int i)
+char	*get_new_resto(char *resto, int i)
 {
-	char *new_resto;
+	char	*new_resto;
 
 	new_resto = NULL;
 	if (resto[i] != '\0')
@@ -85,11 +85,11 @@ char *get_new_resto(char *resto, int i)
 	return (new_resto);
 }
 
-char *extract_line(char **resto)
+char	*extract_line(char **resto)
 {
-	char *line;
-	int i;
-	int j;
+	char	*line;
+	int		i;
+	int		j;
 
 	if (!*resto || **resto == '\0')
 		return (NULL);
