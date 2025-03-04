@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:40:35 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/03 15:40:35 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/04 14:04:52 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stddef.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <string.h>
 
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 1024
