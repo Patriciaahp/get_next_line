@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:00:53 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/05 11:05:54 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/05 12:01:34 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,26 @@ char	*ft_strdup(const char *s)
 {
 	char	*s2;
 	int		i;
-	int		len;
 
-	if (!s)
-		return (NULL);
-	len = ft_strlen(s);
-	s2 = malloc(sizeof(char) * (len + 1));
+	i = 0;
+	while (s[i])
+		i++;
+	s2 = malloc(sizeof(char) * (i + 1));
 	if (!s2)
 		return (NULL);
 	i = 0;
-	while (s[i])
+	while (s[i] != '\0')
 	{
 		s2[i] = s[i];
 		i++;
 	}
 	s2[i] = '\0';
-	return (s2);
+	if (s2 != NULL)
+		return (s2);
+	return (NULL);
 }
 
-void	copy_str(char *dst, char *src, size_t *index)
+void	ft_strlcpy(char *dst, const char *src, size_t *index)
 {
 	size_t	i;
 
@@ -67,8 +68,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	new_str = malloc(len1 + len2 + 1);
 	if (!new_str)
 		return (free(s1), NULL);
-	copy_str(new_str, s1, &i);
-	copy_str(new_str, s2, &i);
+	ft_strlcpy(new_str, s1, &i);
+	ft_strlcpy(new_str, s2, &i);
 	new_str[i] = '\0';
 	free(s1);
 	return (new_str);

@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:40:35 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/04 18:21:56 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/05 11:59:32 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-size_t	ft_strlen(const char *str);
+int		ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(const char *s);
 char	*extract_line(char **resto);
 char	*get_next_line(int fd);
+void	ft_strlcpy(char *dst, const char *src, size_t *index);
 
 #endif
