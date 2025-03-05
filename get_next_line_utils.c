@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:00:53 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/05 10:37:33 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/05 11:05:54 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*new_str;
 	size_t	i;
 
+	i = 0;
 	if (!s1)
 	{
 		s1 = malloc(1);
@@ -66,7 +67,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	new_str = malloc(len1 + len2 + 1);
 	if (!new_str)
 		return (free(s1), NULL);
-	i = 0;
 	copy_str(new_str, s1, &i);
 	copy_str(new_str, s2, &i);
 	new_str[i] = '\0';
@@ -92,6 +92,7 @@ char	*extract_line(char **resto)
 	int		j;
 
 	i = 0;
+	j = 0;
 	if (!*resto || **resto == '\0')
 		return (NULL);
 	while ((*resto)[i] && (*resto)[i] != '\n')
@@ -99,7 +100,6 @@ char	*extract_line(char **resto)
 	line = malloc(i + 2);
 	if (!line)
 		return (NULL);
-	j = 0;
 	while (j <= i)
 	{
 		line[j] = (*resto)[j];
