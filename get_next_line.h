@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:40:35 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/05 11:59:32 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:00:40 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ char	*ft_strdup(const char *s);
 char	*extract_line(char **resto);
 char	*get_next_line(int fd);
 void	ft_strlcpy(char *dst, const char *src, size_t *index);
+char	*get_new_resto(char *resto, int i);
 
 #endif
