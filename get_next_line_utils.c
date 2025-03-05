@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:00:53 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/04 18:22:55 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/05 10:37:33 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ char	*extract_line(char **resto)
 	int		i;
 	int		j;
 
+	i = 0;
 	if (!*resto || **resto == '\0')
 		return (NULL);
-	i = 0;
 	while ((*resto)[i] && (*resto)[i] != '\n')
 		i++;
 	line = malloc(i + 2);
