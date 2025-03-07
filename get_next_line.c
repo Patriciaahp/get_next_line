@@ -35,6 +35,16 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
+char	*ft_invalid(char **resto)
+{
+	if (*resto)
+	{
+		free(*resto);
+		*resto = NULL;
+	}
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*resto;
@@ -43,11 +53,7 @@ char	*get_next_line(int fd)
 
 	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
-	{
-		free (resto);
-		resto = NULL;
-		return (NULL);
-	}
+		return (ft_invalid(&resto));
 	buffer = ft_getbuffer(buffer);
 	while (!ft_strchr(resto, '\n'))
 	{
