@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:41:06 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/05 13:48:34 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/11 09:47:09 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,24 @@ char	*ft_getbuffer(char *buffer)
 		return (NULL);
 	return (buffer);
 }
+/* % gcc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c 
+get_next_line.h -o gnl*/
+/*int main()
+{
+    int fd = open("archivo.txt", O_RDONLY);
+    if (fd == -1)
+    {
+        perror("Error al abrir el archivo");
+        return 1;
+    }
+
+    char *line;
+    while ((line = get_next_line(fd)))
+    {
+        printf("%s", line);
+        free(line);
+    }
+
+    close(fd);
+    return 0;
+}*/
