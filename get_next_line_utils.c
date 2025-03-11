@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:00:53 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/11 09:44:31 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:32:03 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	ft_strlcpy(char *dst, const char *src, size_t *index)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	size_t	len1;
-	size_t	len2;
 	char	*new_str;
 	size_t	i;
 
@@ -63,9 +61,7 @@ char	*ft_strjoin(char *s1, char *s2)
 			return (NULL);
 		s1[0] = '\0';
 	}
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	new_str = malloc(len1 + len2 + 1);
+	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!new_str)
 		return (free(s1), NULL);
 	ft_strlcpy(new_str, s1, &i);

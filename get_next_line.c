@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:41:06 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/11 09:47:09 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:29:10 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ char	*get_next_line(int fd)
 {
 	static char	*resto;
 	char		*buffer;
-	ssize_t		bytes_leidos;
+	int			bytes_leidos;
 
-	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
 		return (ft_invalid(&resto));
-	buffer = ft_getbuffer(buffer);
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
 	while (!ft_strchr(resto, '\n'))
 	{
 		bytes_leidos = read(fd, buffer, BUFFER_SIZE);
@@ -72,13 +73,6 @@ char	*get_next_line(int fd)
 	return (extract_line(&resto));
 }
 
-char	*ft_getbuffer(char *buffer)
-{
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
-	return (buffer);
-}
 /* % gcc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c 
 get_next_line.h -o gnl*/
 /*int main()
