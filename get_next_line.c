@@ -51,14 +51,11 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	int			bytes_leidos;
 	char		*temp;
-	char		*line;
 
 	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
 		return (ft_invalid(&resto));
-	buffer = ft_getbuffer();
-	if (!buffer)
-		return (ft_invalid(&resto));
+	buffer = ft_getbuffer(buffer, &resto);
 	while (!ft_strchr(resto, '\n'))
 	{
 		bytes_leidos = read(fd, buffer, BUFFER_SIZE);
@@ -67,38 +64,27 @@ char	*get_next_line(int fd)
 			free(buffer);
 			if (resto && *resto)
 			{
-				line = extract_line(&resto);
-				if (!line)
-				{
-					free(resto);
-					resto = NULL;
-				}
-				return (line);
+				temp = extract_line(&resto);
+				free(resto);
+				resto = NULL;
+				return temp;
 			}
-			return (ft_invalid(&resto));
-		}
-		buffer[bytes_leidos] = '\0';
-		temp = ft_strjoin(resto, buffer);
-		free(resto);
-		resto = temp;
-		if (!resto)
-		{
-			free(buffer);
 			return (NULL);
 		}
+		buffer[bytes_leidos] = '\0';
+		resto = ft_strjoin(resto, buffer);
 	}
 	free(buffer);
 	return (extract_line(&resto));
 }
 
-char	*ft_getbuffer()
+char	*ft_getbuffer(char *buffer, char **resto)
 {
-	char	*buffer;
-
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 	{
-		return (NULL);
+		free(*resto);
+		*resto = NULL;
 	}
 	return (buffer);
 }
