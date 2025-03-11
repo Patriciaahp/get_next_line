@@ -68,8 +68,11 @@ char	*get_next_line(int fd)
 			if (resto && *resto)
 			{
 				line = extract_line(&resto);
-				free(resto);
-				resto = NULL;
+				if (!line)
+				{
+					free(resto);
+					resto = NULL;
+				}
 				return (line);
 			}
 			return (ft_invalid(&resto));
