@@ -63,7 +63,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!new_str)
-		return (free(s1), NULL);
+	{
+		free(s1);
+		return (NULL);
+	}
 	ft_strlcpy(new_str, s1, &i);
 	ft_strlcpy(new_str, s2, &i);
 	new_str[i] = '\0';
