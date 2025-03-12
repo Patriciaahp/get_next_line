@@ -50,7 +50,6 @@ char	*get_next_line(int fd)
 	static char	*resto;
 	char		*buffer;
 	int			bytes_leidos;
-	char		*temp;
 
 	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
@@ -63,12 +62,7 @@ char	*get_next_line(int fd)
 		{
 			free(buffer);
 			if (resto && *resto)
-			{
-				temp = extract_line(&resto);
-				free(resto);
-				resto = NULL;
-				return temp;
-			}
+				return (extract_line(&resto));
 			return (NULL);
 		}
 		buffer[bytes_leidos] = '\0';

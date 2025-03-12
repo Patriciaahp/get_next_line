@@ -30,7 +30,9 @@ char	*ft_strdup(const char *s)
 		i++;
 	}
 	s2[i] = '\0';
-	return (s2);
+	if (s2 != NULL)
+		return (s2);
+	return (NULL);
 }
 
 void	ft_strlcpy(char *dst, const char *src, size_t *index)
