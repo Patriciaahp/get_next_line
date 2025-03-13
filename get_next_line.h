@@ -32,6 +32,5 @@ char *get_next_line(int fd);
 void ft_strlcpy(char *dst, const char *src, size_t *index);
 char *get_new_rest(char *rest, int i);
 char *ft_invalid(char **rest);
-char *ft_getbuffer(char *buffer, char **rest);
 
 #endif

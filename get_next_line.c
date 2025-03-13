@@ -54,7 +54,9 @@ char *get_next_line(int fd)
 	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
 		return (ft_invalid(&rest));
-	buffer = ft_getbuffer(buffer, &rest);
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (ft_invalid(rest));
 	while (!ft_strchr(rest, '\n'))
 	{
 		bytes_leidos = read(fd, buffer, BUFFER_SIZE);
@@ -70,14 +72,6 @@ char *get_next_line(int fd)
 	}
 	free(buffer);
 	return (extract_line(&rest));
-}
-
-char *ft_getbuffer(char *buffer, char **rest)
-{
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (ft_invalid(rest));
-	return (buffer);
 }
 
 /* % gcc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c
