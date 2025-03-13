@@ -56,7 +56,7 @@ char *get_next_line(int fd)
 		return (ft_invalid(&rest));
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
-		return (ft_invalid(rest));
+		return (ft_invalid(&rest));
 	while (!ft_strchr(rest, '\n'))
 	{
 		bytes_leidos = read(fd, buffer, BUFFER_SIZE);
