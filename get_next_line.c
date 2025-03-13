@@ -12,9 +12,9 @@
 
 #include "get_next_line.h"
 
-int	ft_strlen(const char *str)
+int ft_strlen(const char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (str[i])
@@ -22,7 +22,7 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char *ft_strchr(const char *s, int c)
 {
 	if (!s)
 		return (NULL);
@@ -35,7 +35,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_invalid(char **resto)
+char *ft_invalid(char **resto)
 {
 	if (*resto)
 	{
@@ -45,11 +45,11 @@ char	*ft_invalid(char **resto)
 	return (NULL);
 }
 
-char	*get_next_line(int fd)
+char *get_next_line(int fd)
 {
-	static char	*resto;
-	char		*buffer;
-	int			bytes_leidos;
+	static char *resto;
+	char *buffer;
+	int bytes_leidos;
 
 	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
@@ -72,35 +72,32 @@ char	*get_next_line(int fd)
 	return (extract_line(&resto));
 }
 
-char	*ft_getbuffer(char *buffer, char **resto)
+char *ft_getbuffer(char *buffer, char **resto)
 {
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
-	{
-		free(*resto);
-		*resto = NULL;
-	}
+		return (ft_invalid(resto));
 	return (buffer);
 }
 
-/* % gcc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c 
+/* % gcc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c
 get_next_line.h -o gnl*/
 /*int main()
 {
-    int fd = open("archivo.txt", O_RDONLY);
-    if (fd == -1)
-    {
-        perror("Error al abrir el archivo");
-        return 1;
-    }
+	int fd = open("archivo.txt", O_RDONLY);
+	if (fd == -1)
+	{
+		perror("Error al abrir el archivo");
+		return 1;
+	}
 
-    char *line;
-    while ((line = get_next_line(fd)))
-    {
-        printf("%s", line);
-        free(line);
-    }
+	char *line;
+	while ((line = get_next_line(fd)))
+	{
+		printf("%s", line);
+		free(line);
+	}
 
-    close(fd);
-    return 0;
+	close(fd);
+	return 0;
 }*/
