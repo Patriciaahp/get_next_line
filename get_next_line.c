@@ -35,48 +35,48 @@ char *ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char *ft_invalid(char **resto)
+char *ft_invalid(char **rest)
 {
-	if (*resto)
+	if (*rest)
 	{
-		free(*resto);
-		*resto = NULL;
+		free(*rest);
+		*rest = NULL;
 	}
 	return (NULL);
 }
 
 char *get_next_line(int fd)
 {
-	static char *resto;
+	static char *rest;
 	char *buffer;
 	int bytes_leidos;
 
 	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
-		return (ft_invalid(&resto));
-	buffer = ft_getbuffer(buffer, &resto);
-	while (!ft_strchr(resto, '\n'))
+		return (ft_invalid(&rest));
+	buffer = ft_getbuffer(buffer, &rest);
+	while (!ft_strchr(rest, '\n'))
 	{
 		bytes_leidos = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_leidos <= 0)
 		{
 			free(buffer);
-			if (resto && *resto)
-				return (extract_line(&resto));
+			if (rest && *rest)
+				return (extract_line(&rest));
 			return (NULL);
 		}
 		buffer[bytes_leidos] = '\0';
-		resto = ft_strjoin(resto, buffer);
+		rest = ft_strjoin(rest, buffer);
 	}
 	free(buffer);
-	return (extract_line(&resto));
+	return (extract_line(&rest));
 }
 
-char *ft_getbuffer(char *buffer, char **resto)
+char *ft_getbuffer(char *buffer, char **rest)
 {
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
-		return (ft_invalid(resto));
+		return (ft_invalid(rest));
 	return (buffer);
 }
 

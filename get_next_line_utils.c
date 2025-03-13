@@ -12,10 +12,10 @@
 
 #include "get_next_line.h"
 
-char	*ft_strdup(const char *s)
+char *ft_strdup(const char *s)
 {
-	char	*s2;
-	int		i;
+	char *s2;
+	int i;
 
 	i = 0;
 	while (s[i])
@@ -35,9 +35,9 @@ char	*ft_strdup(const char *s)
 	return (NULL);
 }
 
-void	ft_strlcpy(char *dst, const char *src, size_t *index)
+void ft_strlcpy(char *dst, const char *src, size_t *index)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (src[i])
@@ -48,10 +48,10 @@ void	ft_strlcpy(char *dst, const char *src, size_t *index)
 	}
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char *ft_strjoin(char *s1, char *s2)
 {
-	char	*new_str;
-	size_t	i;
+	char *new_str;
+	size_t i;
 
 	i = 0;
 	if (!s1)
@@ -74,40 +74,40 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (new_str);
 }
 
-char	*get_new_resto(char *resto, int i)
+char *get_new_rest(char *rest, int i)
 {
-	char	*new_resto;
+	char *new_rest;
 
-	new_resto = NULL;
-	if (resto[i] != '\0')
-		new_resto = ft_strdup(resto + i);
-	free(resto);
-	return (new_resto);
+	new_rest = NULL;
+	if (rest[i] != '\0')
+		new_rest = ft_strdup(rest + i);
+	free(rest);
+	return (new_rest);
 }
 
-char	*extract_line(char **resto)
+char *extract_line(char **rest)
 {
-	char	*line;
-	int		i;
-	int		j;
+	char *line;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;
-	if (!*resto || **resto == '\0')
+	if (!*rest || **rest == '\0')
 		return (NULL);
-	while ((*resto)[i] && (*resto)[i] != '\n')
+	while ((*rest)[i] && (*rest)[i] != '\n')
 		i++;
 	line = malloc(i + 2);
 	if (!line)
 		return (NULL);
 	while (j <= i)
 	{
-		line[j] = (*resto)[j];
+		line[j] = (*rest)[j];
 		j++;
 	}
 	line[i + 1] = '\0';
-	if ((*resto)[i] == '\n')
+	if ((*rest)[i] == '\n')
 		i++;
-	*resto = get_new_resto(*resto, i);
+	*rest = get_new_rest(*rest, i);
 	return (line);
 }
