@@ -12,9 +12,9 @@
 
 #include "get_next_line.h"
 
-int ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -22,7 +22,7 @@ int ft_strlen(const char *str)
 	return (i);
 }
 
-char *ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	if (!s)
 		return (NULL);
@@ -35,7 +35,7 @@ char *ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char *ft_invalid(char **rest)
+char	*ft_invalid(char **rest)
 {
 	if (*rest)
 	{
@@ -45,11 +45,11 @@ char *ft_invalid(char **rest)
 	return (NULL);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	static char *rest;
-	char *buffer;
-	int bytes_leidos;
+	static char	*rest;
+	char		*buffer;
+	int			bytes_leidos;
 
 	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)

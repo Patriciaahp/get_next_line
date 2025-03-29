@@ -12,10 +12,10 @@
 
 #include "get_next_line.h"
 
-char *ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
-	char *s2;
-	int i;
+	char	*s2;
+	int		i;
 
 	i = 0;
 	while (s[i])
@@ -35,9 +35,9 @@ char *ft_strdup(const char *s)
 	return (NULL);
 }
 
-void ft_strlcpy(char *dst, const char *src, size_t *index)
+void	ft_strlcpy(char *dst, const char *src, size_t *index)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (src[i])
@@ -48,10 +48,10 @@ void ft_strlcpy(char *dst, const char *src, size_t *index)
 	}
 }
 
-char *ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	char *new_str;
-	size_t i;
+	char	*new_str;
+	size_t	i;
 
 	i = 0;
 	if (!s1)
@@ -74,9 +74,9 @@ char *ft_strjoin(char *s1, char *s2)
 	return (new_str);
 }
 
-char *get_new_rest(char *rest, int i)
+char	*get_new_rest(char *rest, int i)
 {
-	char *new_rest;
+	char	*new_rest;
 
 	new_rest = NULL;
 	if (rest[i] != '\0')
@@ -85,11 +85,11 @@ char *get_new_rest(char *rest, int i)
 	return (new_rest);
 }
 
-char *extract_line(char **rest)
+char	*extract_line(char **rest)
 {
-	char *line;
-	int i;
-	int j;
+	char	*line;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
