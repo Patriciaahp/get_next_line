@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:41:06 by pahernan          #+#    #+#             */
-/*   Updated: 2025/04/02 12:44:29 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:42:15 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_next_line(int fd)
 		if (bytes == -1)
 		{
 			free(buffer);
-			return (NULL);
+			return (ft_invalid(&rest[fd]));
 		}
 		buffer[bytes] = '\0';
 		rest[fd] = ft_strjoin(rest[fd], buffer);
