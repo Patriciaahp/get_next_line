@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:41:06 by pahernan          #+#    #+#             */
-/*   Updated: 2025/04/02 12:01:49 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:40:10 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,13 @@ char	*get_next_line(int fd)
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (ft_invalid(&rest));
-	while (!ft_strchr(rest, '\n'))
+	bytes = 1;
+	while (!ft_strchr(rest, '\n') && bytes > 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes <= 0)
+		if (bytes == -1)
 		{
 			free(buffer);
-			if (rest && *rest)
-				return (extract_line(&rest));
 			return (NULL);
 		}
 		buffer[bytes] = '\0';
