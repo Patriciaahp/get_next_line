@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:41:06 by pahernan          #+#    #+#             */
-/*   Updated: 2025/04/02 12:01:49 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:01:33 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,31 +47,31 @@ char	*ft_invalid(char **rest)
 
 char	*get_next_line(int fd)
 {
-	static char	*rest;
+	static char	*rest[4096];
 	char		*buffer;
 	int			bytes;
 
 	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (ft_invalid(&rest));
+		return (ft_invalid(&rest[fd]));
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
-		return (ft_invalid(&rest));
-	while (!ft_strchr(rest, '\n'))
+		return (ft_invalid(&rest[fd]));
+	while (!ft_strchr(rest[fd], '\n'))
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes <= 0)
 		{
 			free(buffer);
-			if (rest && *rest)
-				return (extract_line(&rest));
+			if (rest[fd] && *rest[fd])
+				return (extract_line(&rest[fd]));
 			return (NULL);
 		}
 		buffer[bytes] = '\0';
-		rest = ft_strjoin(rest, buffer);
+		rest[fd] = ft_strjoin(rest[fd], buffer);
 	}
 	free(buffer);
-	return (extract_line(&rest));
+	return (extract_line(&rest[fd]));
 }
 
 /* cc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c
