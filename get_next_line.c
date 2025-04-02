@@ -6,7 +6,7 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:41:06 by pahernan          #+#    #+#             */
-/*   Updated: 2025/03/11 12:29:10 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/04/01 23:24:01 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*get_next_line(int fd)
 {
 	static char	*rest;
 	char		*buffer;
-	int			bytes_leidos;
+	int			bytes;
 
 	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
@@ -59,22 +59,22 @@ char	*get_next_line(int fd)
 		return (ft_invalid(&rest));
 	while (!ft_strchr(rest, '\n'))
 	{
-		bytes_leidos = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_leidos <= 0)
+		bytes = read(fd, buffer, BUFFER_SIZE);
+		if (bytes <= 0)
 		{
 			free(buffer);
 			if (rest && *rest)
 				return (extract_line(&rest));
 			return (NULL);
 		}
-		buffer[bytes_leidos] = '\0';
+		buffer[bytes] = '\0';
 		rest = ft_strjoin(rest, buffer);
 	}
 	free(buffer);
 	return (extract_line(&rest));
 }
 
-/* % gcc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c
+/* cc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c
 get_next_line.h -o gnl*/
 /*int main()
 {
