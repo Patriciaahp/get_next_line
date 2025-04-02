@@ -10,67 +10,58 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-int	ft_strlen(const char *str)
+char	*read_file(int fd, char *buff)
 {
-	int	i;
+	char	*tmp;
+	char	*line;
+	char	*new_line;
+	ssize_t	bytes_read;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	if (!s)
-		return (NULL);
-	while (*s)
+	line = ft_strjoin(buff, "");
+	while (!ft_strchr(line, '\n'))
 	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
+		tmp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		if (!tmp)
+			return (free(line), NULL);
+		bytes_read = read(fd, tmp, BUFFER_SIZE);
+		if (bytes_read < 0)
+			return (free(line), free(tmp), NULL);
+		if (bytes_read == 0)
+			return (free(tmp), line);
+		tmp[bytes_read] = '\0';
+		new_line = ft_strjoin(line, tmp);
+		free(line);
+		free(tmp);
+		line = ft_strdup(new_line);
+		free(new_line);
 	}
-	return (NULL);
-}
-
-char	*ft_invalid(char **rest)
-{
-	if (*rest)
-	{
-		free(*rest);
-		*rest = NULL;
-	}
-	return (NULL);
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*rest[4096];
-	char		*buffer;
-	int			bytes;
+	static char	buff[BUFFER_SIZE + 1];
+	char		*line;
+	int			i;
 
-	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (ft_invalid(&rest[fd]));
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (ft_invalid(&rest[fd]));
-	bytes = 1;
-	while (!ft_strchr(rest[fd], '\n') && bytes > 0)
-	{
-		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes == -1)
-		{
-			free(buffer);
-			return (ft_invalid(&rest[fd]));
-		}
-		buffer[bytes] = '\0';
-		rest[fd] = ft_strjoin(rest[fd], buffer);
-	}
-	free(buffer);
-	return (extract_line(&rest[fd]));
+		return (NULL);
+	line = read_file(fd, buff);
+	if (!line)
+		return (buff[0] = '\0', NULL);
+	if (!line[0])
+		return (free(line), NULL);
+	if (!ft_strchr(line, '\n'))
+		return (ft_strcpy(buff, ""), line);
+	ft_strcpy(buff, ft_strchr(line, '\n') + 1);
+	i = 0;
+	while (line[i] && line[i] != '\n')
+		i++;
+	if (line[i] == '\n' && line[i + 1])
+		line[i + 1] = '\0';
+	return (line);
 }
 
 /* cc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c
