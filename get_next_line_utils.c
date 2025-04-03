@@ -12,94 +12,102 @@
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+char	*ft_strdup(const char *s)
 {
-	size_t	len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
+	char	*s2;
 	int		i;
-	int		j;
 
-	if (!s1)
-		s1 = "";
-	if (!s2)
-		s2 = "";
-	str = malloc((ft_strlen((char *)s1) + ft_strlen((char *)s2)) + 1);
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-		str[i++] = s2[j++];
-	str[i] = '\0';
-	return (str);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	int	i;
-
-	if (!s)
-		return (NULL);
 	i = 0;
 	while (s[i])
+		i++;
+	s2 = malloc(sizeof(char) * (i + 1));
+	if (!s2)
+		return (NULL);
+	i = 0;
+	while (s[i] != '\0')
 	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
+		s2[i] = s[i];
 		i++;
 	}
-	if ((char)c == '\0')
-		return ((char *)&s[i]);
+	s2[i] = '\0';
+	if (s2 != NULL)
+		return (s2);
 	return (NULL);
 }
 
-char	*ft_strdup(const char *src)
+void	ft_strlcpy(char *dst, const char *src, size_t *index)
 {
-	int		i;
-	char	*dest;
+	size_t	i;
 
 	i = 0;
-	dest = malloc(sizeof(char) * ft_strlen(src) + 1);
-	if (dest == NULL)
-		return (NULL);
 	while (src[i])
 	{
-		dest[i] = src[i];
+		dst[*index] = src[i];
 		i++;
+		(*index)++;
 	}
-	dest[i] = '\0';
-	return (dest);
 }
 
-void	ft_strcpy(char *buff, char *new_buff)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	int	i;
+	char	*new_str;
+	size_t	i;
 
-	if (!new_buff)
-		return ;
 	i = 0;
-	while (i < BUFFER_SIZE)
+	if (!s1)
 	{
-		buff[i] = '\0';
-		i++;
+		s1 = malloc(1);
+		if (!s1)
+			return (NULL);
+		s1[0] = '\0';
 	}
+	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!new_str)
+	{
+		free(s1);
+		return (NULL);
+	}
+	ft_strlcpy(new_str, s1, &i);
+	ft_strlcpy(new_str, s2, &i);
+	new_str[i] = '\0';
+	free(s1);
+	return (new_str);
+}
+
+char	*get_new_rest(char *rest, int i)
+{
+	char	*new_rest;
+
+	new_rest = NULL;
+	if (rest[i] != '\0')
+		new_rest = ft_strdup(rest + i);
+	free(rest);
+	return (new_rest);
+}
+
+char	*extract_line(char **rest)
+{
+	char	*line;
+	int		i;
+	int		j;
+
 	i = 0;
-	while (new_buff[i] && i < BUFFER_SIZE)
-	{
-		buff[i] = new_buff[i];
+	j = 0;
+	if (!*rest || **rest == '\0')
+		return (NULL);
+	while ((*rest)[i] && (*rest)[i] != '\n')
 		i++;
+	line = malloc(i + 2);
+	if (!line)
+		return (NULL);
+	while (j <= i)
+	{
+		line[j] = (*rest)[j];
+		j++;
 	}
+	line[i + 1] = '\0';
+	if ((*rest)[i] == '\n')
+		i++;
+	*rest = get_new_rest(*rest, i);
+	return (line);
 }
