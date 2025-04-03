@@ -6,11 +6,11 @@
 /*   By: pahernan <pahernan@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:00:53 by pahernan          #+#    #+#             */
-/*   Updated: 2025/04/03 12:59:12 by pahernan         ###   ########.fr       */
+/*   Updated: 2025/04/03 13:26:11 by pahernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strdup(const char *s)
 {
